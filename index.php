@@ -3,19 +3,15 @@ require_once 'includes/init.php';
 
 //var_dump(Session::get(Config::get('session.user_session')));
 echo Session::flash('success') . "<br>";
-$user = new User;
-if ($user->isLoggedIn()){
-    echo "Hi, <a href='#'>{$user->data()->username}</a>";
-    echo "<p><a href='logout.php'>Logout</a></p>";
-    echo "<p><a href='update.php'>Update profile</a></p>";
-    echo "<p><a href='changepassword.php'>Change password</a></p>";
+$users = Db::getInstance()->query("SELECT * FROM users")->results();
+$user = new User();
 
-    if ($user->hasPermissions('admin')){
-        echo "You are admin!";
-    }
-} else {
-    echo "<a href='login.php'>Login</a> or <a href='register.php'>Register</a>";
-}
+
+//    if ($user->hasPermissions('admin')){
+//        echo "You are admin!";
+//    }
+
+
 
 ?>
 
@@ -42,18 +38,27 @@ if ($user->isLoggedIn()){
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">Главная</a>
+            <a class="nav-link" href="index.php">Главная</a>
           </li>
         </ul>
-
+<?php if ($user->isLoggedIn()):?>
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a href="#" class="nav-link">Войти</a>
+            <a href="profile.php" class="nav-link">Профиль</a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">Регистрация</a>
+            <a href="register.php" class="nav-link">Регистрация</a>
           </li>
         </ul>
+          <ul class="navbar-nav">
+              <li class="nav-item">
+                  <a href="login.php" class="nav-link">Войти</a>
+              </li>
+              <li class="nav-item">
+                  <a href="register.php" class="nav-link">Выйти</a>
+              </li>
+          </ul>
+          <?php endif;?>
       </div>
     </nav>
 
@@ -65,12 +70,13 @@ if ($user->isLoggedIn()){
           <p class="lead">Это дипломный проект по разработке на PHP. На этой странице список наших пользователей.</p>
           <hr class="my-4">
           <p>Чтобы стать частью нашего проекта вы можете пройти регистрацию.</p>
-          <a class="btn btn-primary btn-lg" href="#" role="button">Зарегистрироваться</a>
+          <a class="btn btn-primary btn-lg" href="register.php" role="button">Зарегистрироваться</a>
         </div>
       </div>
     </div>
 
     <div class="row">
+
       <div class="col-md-12">
         <h1>Пользователи</h1>
         <table class="table">
@@ -82,31 +88,19 @@ if ($user->isLoggedIn()){
               <th>Дата</th>
             </tr>
           </thead>
-
           <tbody>
+          <?php foreach ($users as $user):?>
             <tr>
-              <td>1</td>
-              <td><a href="#">Rahim</a></td>
-              <td>rahim@marlindev.ru</td>
-              <td>12/03/2025</td>
+              <td><?php echo $user->id;?></td>
+              <td><a href="user_profile.php?id=<?php echo $user->id;?>"><?php echo $user->username;?></a></td>
+              <td><?php echo $user->email;?></td>
+              <td><?php echo $user->registration_date;?></td>
             </tr>
-
-            <tr>
-              <td>2</td>
-              <td><a href="#">John</a></td>
-              <td>john@marlindev.ru</td>
-              <td>12/03/2025</td>
-            </tr>
-
-            <tr>
-              <td>3</td>
-              <td><a href="#">Jane</a></td>
-              <td>jane@marlindev.ru</td>
-              <td>12/03/2025</td>
-            </tr>
+          <?php endforeach;?>
           </tbody>
         </table>
       </div>
+
     </div>
   </div>
 </body>

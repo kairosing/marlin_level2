@@ -59,18 +59,19 @@ if (!empty($_POST)) {
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">Главная</a>
+            <a class="nav-link" href="index.php">Главная</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Управление пользователями</a>
+            <a class="nav-link" href="index.php">Управление пользователями</a>
+
           </li>
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item">
             <li class="nav-item">
-              <a href="profile.html" class="nav-link">Профиль</a>
+              <a href="profile.php" class="nav-link">Профиль</a>
             </li>
-            <a href="#" class="nav-link">Выйти</a>
+            <a href="logout.php" class="nav-link">Выйти</a>
           </li>
         </ul>
       </div>
@@ -94,7 +95,7 @@ if (!empty($_POST)) {
          </div>
            <?php endif;?>
          <ul>
-           <li><a href="profile.html">Изменить профиль</a></li>
+           <li><a href="profile.php">Изменить профиль</a></li>
          </ul>
 
 

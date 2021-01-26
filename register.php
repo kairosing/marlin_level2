@@ -39,11 +39,12 @@ if (Input::exists()){
 
             Session::flash('success', 'register success');
             // header('Location: test.php');
-            Redirect::to('index.php');
+            Redirect::to('login.php');
         }else {
-            foreach ($validation->errors() as $error){
-                echo $error . "<br>";
-            }
+            Session::flash('alert-info', 'You must agree to the terms!');
+//            foreach ($validation->errors() as $error){
+//                echo $error . "<br>";
+//            }
         }
     }
 }
