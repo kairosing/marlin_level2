@@ -1,6 +1,6 @@
 <?php
 
-require_once 'includes/init.php';
+require_once 'init.php';
 
 $user = new User();
 
@@ -78,7 +78,7 @@ if (Input::exists()){
    <div class="container">
      <div class="row">
        <div class="col-md-8">
-         <h1>Профиль пользователя -<?php echo $user->data()->username;?></h1>
+         <h1>Профиль пользователя <?php echo $user->data()->username;?></h1>
 
 <!--           Ошибка валидации-->
            <?php if (Session::flashExists('success')):?>

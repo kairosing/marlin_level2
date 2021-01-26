@@ -1,5 +1,5 @@
 <?php
-require_once 'includes/init.php';
+require_once 'init.php';
 
 //var_dump(Session::get(Config::get('session.user_session')));
 echo Session::flash('success') . "<br>";

@@ -1,3 +1,8 @@
+<?php
+require_once '../init.php';
+
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -31,7 +36,7 @@
         <ul class="navbar-nav">
           <li class="nav-item">
             <li class="nav-item">
-              <a href="profile.html" class="nav-link">Профиль</a>
+              <a href="../profile.php" class="nav-link">Профиль</a>
             </li>
             <a href="#" class="nav-link">Выйти</a>
           </li>
