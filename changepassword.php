@@ -1,3 +1,41 @@
+<?php
+require_once 'includes/init.php';
+
+$user = new User;
+
+if (!empty($_POST)) {
+
+    $validate = new Validate();
+
+    $validate->check($_POST, [
+        'current_password' => ['required' => true, 'min' => 2],
+        'new_password' => ['required' => true, 'min' => 2],
+        'new_password_again' => ['required' => true, 'min' => 2, 'matches' => 'new_password']
+    ]);
+    if (Input::exists()){
+        if (Token::check(Input::get('token'))){
+            if ($validate->passed()){
+
+                if (password_verify(Input::get('current_password'), $user->data()->password)){
+                    $user->update(['password' => password_hash(Input::get('new_password'), PASSWORD_DEFAULT)]);
+                    Session::flash('success', 'Password has been update');
+                    Redirect::to('index.php');
+                } else {
+                    echo 'Invalid current password';
+                }
+
+
+            } else {
+                foreach ($validate->errors() as $error){
+                    echo $error . '<br>';
+                }
+            }
+        }
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +65,6 @@
             <a class="nav-link" href="#">Управление пользователями</a>
           </li>
         </ul>
-
         <ul class="navbar-nav">
           <li class="nav-item">
             <li class="nav-item">
@@ -43,32 +80,42 @@
      <div class="row">
        <div class="col-md-8">
          <h1>Изменить пароль</h1>
-         <div class="alert alert-success">Пароль обновлен</div>
-         
-         <div class="alert alert-danger">
+           <?php if (Session::flashExists('success')):?>
+         <div class="alert alert-success"><?php echo Session::flash('success')?></div>
+           <?php endif;?>
+<!--        Ошибка валидации -->
+           <?php if (Session::flashExists('danger')):?>
+         <div class="alert alert-danger"><?php echo Session::flash('danger')?>
            <ul>
-             <li>Ошибка валидации</li>
+               <?php foreach ($validate->errors() as $error):?>
+             <li><?php echo $error;?></li>
+               <?php endforeach;?>
            </ul>
          </div>
+           <?php endif;?>
          <ul>
            <li><a href="profile.html">Изменить профиль</a></li>
          </ul>
-         <form action="" class="form">
+
+
+
+         <form action="" method="post" class="form">
            <div class="form-group">
              <label for="current_password">Текущий пароль</label>
-             <input type="password" id="current_password" class="form-control">
+             <input type="password" id="username" class="form-control" name="current_password">
            </div>
            <div class="form-group">
              <label for="current_password">Новый пароль</label>
-             <input type="password" id="current_password" class="form-control">
+             <input type="password" id="username" class="form-control" name="new_password" >
            </div>
            <div class="form-group">
              <label for="current_password">Повторите новый пароль</label>
-             <input type="password" id="current_password" class="form-control">
+             <input type="password" id="username" class="form-control" name="new_password_again">
            </div>
 
            <div class="form-group">
              <button class="btn btn-warning">Изменить</button>
+               <input type="hidden" name="token" value="<?php echo Token::generate();?>">
            </div>
          </form>
 

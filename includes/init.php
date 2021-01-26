@@ -1,15 +1,15 @@
 <?php
 session_start();
 
-require_once '../classes/Db.php';
-require_once '../classes/Config.php';
-require_once '../classes/Validate.php';
-require_once '../classes/Input.php';
-require_once '../classes/Token.php';
-require_once '../classes/Session.php';
-require_once '../classes/User.php';
-require_once '../classes/Redirect.php';
-require_once '../classes/Cookie.php';
+require_once 'classes/Db.php';
+require_once 'classes/Config.php';
+require_once 'classes/Validate.php';
+require_once 'classes/Input.php';
+require_once 'classes/Token.php';
+require_once 'classes/Session.php';
+require_once 'classes/User.php';
+require_once 'classes/Redirect.php';
+require_once 'classes/Cookie.php';
 
 $GLOBALS['config'] = [
     'mysql' => [

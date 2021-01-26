@@ -3,6 +3,8 @@ require_once 'init.php';
 
 $user = new User;
 
+if (!empty($_POST)) {
+
 $validate = new Validate();
 
 $validate->check($_POST, [
@@ -29,6 +31,7 @@ if (Input::exists()){
             }
         }
     }
+}
 }
 
 ?>
