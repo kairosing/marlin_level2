@@ -39,7 +39,7 @@ if (Input::exists()){
 
             Session::flash('success', 'register success');
             // header('Location: test.php');
-            Redirect::to('/test.php');
+            Redirect::to('index.php');
         }else {
             foreach ($validation->errors() as $error){
                 echo $error . "<br>";
