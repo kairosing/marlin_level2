@@ -71,6 +71,7 @@ if (!empty($_POST)){
             </li>
           </ul>
 
+
           <ul class="navbar-nav">
             <li class="nav-item">
               <li class="nav-item">
@@ -86,13 +87,20 @@ if (!empty($_POST)){
      <div class="row">
        <div class="col-md-8">
          <h1>Профиль пользователя <?php echo $user->data()->username;?></h1>
-         <div class="alert alert-success">Профиль обновлен</div>
-         
+         <?php if (Session::flashExists('success')):?>
+           <div class="alert alert-success"><?php Session::flash('success')?></div>
+         <?php endif;?>
+           <?php if (Session::flashExists('danger')):?>
          <div class="alert alert-danger">
+             <?php Session::flash('danger')?>
            <ul>
-             <li>Ошибка валидации</li>
+               <?php foreach ($validate->errors() as $error):?>
+             <li><?php echo $error;?></li>
+               <?php endforeach;?>
            </ul>
          </div>
+           <?php endif;?>
+
          <form action="" method="post" class="form">
            <div class="form-group">
              <label for="username">Имя</label>
