@@ -112,8 +112,9 @@ class User {
             if ($permissions[$key]){
                 return true;
             }
+
         }
-         return false;
+        return false;
     }
 
 }

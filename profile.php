@@ -55,23 +55,25 @@ if (Input::exists()){
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="#">Главная</a>
+              <a class="nav-link" href="index.php">Главная</a>
             </li>
-            <li class="nav-item">
-                <?php if ($user->hasPermissions('admin')):?>
-              <a class="nav-link" href="users/index.php">Управление пользователями</a>
-                <?php endif;?>
-            </li>
-          </ul>
 
+              <?php if ($user->hasPermissions('admin')):?>
+            <li class="nav-item">
+              <a class="nav-link" href="users/index.php">Управление пользователями</a>
+            </li>
+              <?php endif;?>
+
+          </ul>
           <ul class="navbar-nav">
             <li class="nav-item">
               <li class="nav-item">
                 <a href="profile.php" class="nav-link">Профиль</a>
               </li>
-              <a href="#" class="nav-link">Выйти</a>
+              <a href="logout.php" class="nav-link">Выйти</a>
             </li>
           </ul>
+
         </div>
     </nav>
 

@@ -1,6 +1,8 @@
 <?php
 require_once '../init.php';
 
+$users = Db::getInstance()->query("SELECT * FROM users")->results();
+$user = new User();
 ?>
 
 <!doctype html>
@@ -26,10 +28,10 @@ require_once '../init.php';
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">Главная</a>
+            <a class="nav-link" href="../index.php">Главная</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Управление пользователями</a>
+            <a class="nav-link" href="index.php">Управление пользователями</a>
           </li>
         </ul>
 
@@ -38,7 +40,7 @@ require_once '../init.php';
             <li class="nav-item">
               <a href="../profile.php" class="nav-link">Профиль</a>
             </li>
-            <a href="#" class="nav-link">Выйти</a>
+            <a href="../logout.php" class="nav-link">Выйти</a>
           </li>
         </ul>
       </div>
@@ -58,41 +60,25 @@ require_once '../init.php';
           </thead>
 
           <tbody>
+          <?php foreach ($users as $user):?>
+          <?php $is_user_admin = $user->group_id != '2';?>
             <tr>
-              <td>1</td>
-              <td>Rahim</td>
-              <td>rahim@marlindev.ru</td>
-              <td>
-              	<a href="#" class="btn btn-success">Назначить администратором</a>
-                <a href="#" class="btn btn-info">Посмотреть</a>
-                <a href="#" class="btn btn-warning">Редактировать</a>
-                <a href="#" class="btn btn-danger" onclick="return confirm('Вы уверены?');">Удалить</a>
-              </td>
-            </tr>
+              <td><?php echo $user->id;?></td>
+              <td><?php echo $user->username;?></td>
+              <td><?php echo $user->email;?></td>
 
-            <tr>
-              <td>2</td>
-              <td>John</td>
-              <td>john@marlindev.ru</td>
-              <td>
-              	<a href="#" class="btn btn-danger">Разжаловать</a>
-                <a href="#" class="btn btn-info">Посмотреть</a>
-                <a href="#" class="btn btn-warning">Редактировать</a>
-                <a href="#" class="btn btn-danger" onclick="return confirm('Вы уверены?');">Удалить</a>
-              </td>
-            </tr>
+                <?php if ($is_user_admin){
+                    $status = 'success';
+                }?>
 
-            <tr>
-              <td>3</td>
-              <td>Jane</td>
-              <td>jane@marlindev.ru</td>
               <td>
-              	<a href="#" class="btn btn-success">Назначить администратором</a>
-                <a href="#" class="btn btn-info">Посмотреть</a>
-                <a href="#" class="btn btn-warning">Редактировать</a>
-                <a href="#" class="btn btn-danger" onclick="return confirm('Вы уверены?');">Удалить</a>
+              	<a href="changepermissions.php?id=<?php echo $user->id;?>" class="btn btn-success">Назначить администратором</a>
+                <a href="../user_profile.php?id=<?php echo $user->id;?>" class="btn btn-info">Посмотреть</a>
+                <a href="edit.php?id=<?php echo $user->id;?>" class="btn btn-warning">Редактировать</a>
+                <a href="delete_user.php?id=<?php echo $user->id?>" class="btn btn-danger" onclick="return confirm('Вы уверены?');">Удалить</a>
               </td>
             </tr>
+          <?php endforeach;?>
           </tbody>
         </table>
       </div>

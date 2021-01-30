@@ -35,6 +35,11 @@ $user->data();
             <a class="nav-link" href="index.php">Главная</a>
           </li>
         </ul>
+<!--          --><?php //if ($user->hasPermissions('admin')):?>
+<!--              <li class="nav-item">-->
+<!--                  <a class="nav-link" href="users/index.php">Управление пользователями</a>-->
+<!--              </li>-->
+<!--<?php ////endif;?>-->
 
         <ul class="navbar-nav">
           <li class="nav-item">
